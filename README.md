@@ -7,7 +7,8 @@ Write a function, isPrototypeOf, that works just like Object.prototype.isPrototy
 Obviously, don't use Object.prototype.isPrototypeOf in your solution, but feel free to use other methods on Object.prototype.
 
 
-```var canine = {
+```javascript
+var canine = {
   bark: function() {
     console.log('bark');
   }
