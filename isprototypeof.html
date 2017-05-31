@@ -6,11 +6,64 @@
 
 <script>
 
-    SimpleTest.run({
-        'first test': function() {
-            return true;
-        }
-    })
+var canine = {
+  bark: function() {
+    console.log('bark');
+  }
+};
+
+var dog = Object.create(canine);
+dog.fetch = function() {
+  console.log('fetch');
+};
+
+var myDog = Object.create(dog);
+var empty = Object.create(null);
+
+// tests: 
+
+  // one prototype chain link
+    // canine is prototype of dog
+    // dog is prototype of myDog
+    // dog is not prototype of empty
+
+  // more prototype chain links
+    // Object.prototype is prototype of myDog
+    // canine is prototype of myDog
+    // canine is not prototype of empty
+
+
+function isPrototypeOf(isObjectProto, object) {
+    var oneLinkUpProto = Object.getPrototypeOf(object);
+    if (oneLinkUpProto === isObjectProto) {
+        return true;
+    } else if (oneLinkUpProto === null) {
+        return false;
+    } else {
+        return isPrototypeOf(isObjectProto, oneLinkUpProto);
+    }
+}
+
+SimpleTest.run({
+    'it should return true if isObjectProto is the prototype of object': function() { 
+        eq(isPrototypeOf(canine, dog), true);
+        eq(isPrototypeOf(dog, myDog), true);
+    },
+    'it should return false if object has no prototype': function() {
+        eq(isPrototypeOf(dog, empty), false);        
+        eq(isPrototypeOf(canine, empty), false);
+    },
+    'it should return true if the Object prototype is the prototype of object': function() {
+        eq(isPrototypeOf(Object.prototype, dog), true);
+    },
+    'it should return true if an object 2 links up the chain is the prototype of object': function() {
+        eq(isPrototypeOf(canine, myDog), true);
+    },
+})
+
+
+
+
 </script>
 </head>
 <body>
