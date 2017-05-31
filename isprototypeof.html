@@ -20,7 +20,7 @@ dog.fetch = function() {
 var myDog = Object.create(dog);
 var empty = Object.create(null);
 
-// tests: 
+// tests scheme (implemetation could be different): 
 
   // one prototype chain link
     // canine is prototype of dog
@@ -53,12 +53,12 @@ SimpleTest.run({
         eq(isPrototypeOf(dog, empty), false);        
         eq(isPrototypeOf(canine, empty), false);
     },
-    'it should return true if the Object prototype is the prototype of object': function() {
-        eq(isPrototypeOf(Object.prototype, dog), true);
-    },
     'it should return true if an object 2 links up the chain is the prototype of object': function() {
         eq(isPrototypeOf(canine, myDog), true);
     },
+        'it should return true if the Object prototype is the prototype of object': function() {
+        eq(isPrototypeOf(Object.prototype, dog), true);
+    }
 })
 
 
